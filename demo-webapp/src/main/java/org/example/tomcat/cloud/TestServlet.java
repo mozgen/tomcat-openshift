@@ -16,6 +16,8 @@
 
 package org.example.tomcat.cloud;
 
+import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 
+@WebServlet(description = "Demo for sessions in the cloud", urlPatterns = { "/demo" })
 public class TestServlet extends HttpServlet {
     private static final String TEMPLATE = "{\n" +
             "  \"counter\": %d,\n" +
@@ -37,11 +40,6 @@ public class TestServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-
-        if (!request.getServletPath().equals("/")) {
-            response.setStatus(404);
-            return;
-        }
 
         HttpSession session = request.getSession();
 

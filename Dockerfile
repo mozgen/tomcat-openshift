@@ -20,9 +20,11 @@ VOLUME /tmp
 USER root
 RUN mkdir -m 777 -p /deployments
 
-ADD target/tomcat-maven-1.0.jar /deployments/app.jar
+ADD tomcat/target/tomcat-maven-1.0.jar /deployments/app.jar
 ADD conf /deployments/conf
-ADD webapps /deployments/webapps
+
+RUN mkdir -m 777 -p /deployments/webapps
+ADD demo-webapp/target/demo-1.0.war /deployments/webapps
 
 WORKDIR /deployments
 
