@@ -5,4 +5,4 @@ The tomcat-openshift is just explaining how to use the image in OpenShift and de
 mvn install  
 docker build -t tomcat-demo .  
 docker run --rm -p 8080:8080 -it tomcat-demo  
-curl -v http://172.17.0.1:8080/demo-1.0/demo  
+curl -v http://localhost:8080/demo-1.0/demo  
