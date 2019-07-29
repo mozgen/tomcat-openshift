@@ -1,0 +1,34 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: tomcat-demo
+  creationTimestamp: 
+  labels:
+    run: tomcat-demo
+spec:
+  selector:
+    matchLabels:
+      run: tomcat-demo
+  template:
+    metadata:
+      creationTimestamp: 
+      labels:
+        run: tomcat-demo
+    spec:
+      containers:
+      - name: tomcat-demo
+        image: docker.io/jfclere/tomcat-demo
+        env:
+        - name: KUBERNETES_NAMESPACE
+          value: "tomcat-demo"
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /demo-1.0/health
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        resources: {}
+  strategy: {}
+status: {}
