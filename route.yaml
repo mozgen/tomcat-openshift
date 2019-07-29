@@ -5,6 +5,10 @@ metadata:
   namespace: tomcat-demo
   labels:
     run: tomcat-demo
+  annotations:
+    openshift.io/host.generated: 'true'
+    haproxy.router.openshift.io/balance: roundrobin
+    haproxy.router.openshift.io/disable_cookies: 'true'
 spec:
   to:
     kind: Service
