@@ -19,39 +19,36 @@ package org.example.tomcat.cloud;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import org.apache.catalina.valves.ValveBase;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.Response;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+/*
+ * Health Check valve.
+ */
 
-public class TestFilter implements Filter {
- 
-    @Override
-    public void init(FilterConfig filterConfig) {
-        System.out.println("init Called!!!"); 
-        // ...
+public class TestValve
+    extends ValveBase {
+
+    private String healthURL = "/health";
+
+    public String getHealthURL() {
+        return healthURL;
     }
- 
-    @Override
-    public void doFilter(
-      ServletRequest request, 
-      ServletResponse response, 
-      FilterChain chain) 
-      throws IOException, ServletException {
 
-        System.out.println("doFilter Called!!!"); 
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.addHeader("myHeader", "myHeaderValue");
-        chain.doFilter(request, httpResponse);
+    public void setHealthURL(String healthURL) {
+        this.healthURL = healthURL;
     }
- 
-    @Override
-    public void destroy() {
-        // ...
+
+
+    public void invoke(Request request, Response response)
+        throws IOException, ServletException {
+        String url = request.getRequestURI();
+        if (url.endsWith(healthURL)) {
+            response.setStatus(200);
+        } else {
+    	    getNext().invoke(request, response);
+        }
     }
 }
