@@ -14,6 +14,14 @@ oc new-project tomcat-demo
 oc create -f deployment.yaml  
 oc scale --replicas=2 deployment tomcat-demo  
 oc create -f service.yaml  
+oc create -f route.yaml  
+Read the URL for demo:  
+```
+[jfclere@localhost tomcat-openshift]$ oc get routes
+NAME          HOST/PORT                                                             PATH      SERVICES      PORT      TERMINATION   WILDCARD
+tomcat-demo   tomcat-demo-tomcat-demo.apps.us-east-1.online-starter.openshift.com             tomcat-demo   http                    None
+```
+
 
 # connect to openshift using KUBEPing: (DRAFT) 
 

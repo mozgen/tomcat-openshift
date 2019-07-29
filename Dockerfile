@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM docker.io/fedora
+FROM openjdk:8-jre-alpine
 VOLUME /tmp
 
 USER root
@@ -40,8 +40,8 @@ ENV JAVA_OPTS="${JAVA_OPTS} -Djava.util.logging.manager=org.apache.juli.ClassLoa
 
 RUN sh -c 'touch app.jar'
 
-#RUN mkdir /opt
-RUN yum -y install java-1.8.0-openjdk-headless curl bind-utils
+RUN mkdir -p /opt
+#RUN yum -y install java-1.8.0-openjdk-headless curl bind-utils
 
 # Optional: Add Jolokia agent for JMX monitoring and management
 # RUN mkdir /opt/jolokia && wget https://repo.maven.apache.org/maven2/org/jolokia/jolokia-jvm/1.6.2/jolokia-jvm-1.6.2-agent.jar -O /opt/jolokia/jolokia.jar
