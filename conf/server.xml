@@ -112,7 +112,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-        <Valve className="org.example.tomcat.cloud.TestValve" healthURL = "/health" />
+        <Valve className="org.apache.catalina.valves.HealthCheckValve" path="/health" />
         <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster">
           <Channel className="org.apache.catalina.tribes.group.GroupChannel">
             <Membership className="org.apache.catalina.tribes.membership.cloud.CloudMembershipService" membershipProviderClassName="org.apache.catalina.tribes.membership.cloud.DNSMembershipProvider"/>
