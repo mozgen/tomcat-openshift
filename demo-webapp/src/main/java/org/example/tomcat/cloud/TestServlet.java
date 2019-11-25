@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 
-@WebServlet(description = "Demo for sessions in the cloud", urlPatterns = { "/demo" })
+@WebServlet(description = "Demo for sessions in the cloud", urlPatterns = { "/" })
 public class TestServlet extends HttpServlet {
     private static final String TEMPLATE = "{\n" +
             "  \"counter\": %d,\n" +

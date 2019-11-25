@@ -22,9 +22,10 @@ RUN mkdir -m 777 -p /deployments
 
 ADD tomcat/target/tomcat-maven-1.0.jar /deployments/app.jar
 ADD conf /deployments/conf
+RUN chmod 777 /deployments/conf
 
 RUN mkdir -m 777 -p /deployments/webapps
-ADD demo-webapp/target/demo-1.0.war /deployments/webapps
+ADD demo-webapp/target/demo-1.0.war /deployments/webapps/ROOT.war
 
 WORKDIR /deployments
 

@@ -2,19 +2,26 @@
 Example to use tomcat docker image in openshift  
 First look to https://github.com/apache/tomcat/tree/master/res/tomcat-maven  
 The tomcat-openshift is just explaining how to use the image in OpenShift and demo it.  
+```bash
 mvn install  
 docker build -t docker.io/jfclere/tomcat-demo .  
-docker push jfclere/tomcat-demo  
+docker push docker.io/jfclere/tomcat-demo  
+```
 
-To test the tomcat-demo localy:  
+To test the tomcat-demo localy (java.net.UnknownHostException: tomcat-demo: Name does not resolve is expected):  
+```bash
 docker run --rm -p 8080:8080 --env "KUBERNETES_NAMESPACE=tomcat-demo" -it docker.io/jfclere/tomcat-demo  
+```
 
-# connect to openshift using DNSPing
-oc new-project tomcat-demo  
-oc create -f deployment.yaml  
-oc scale --replicas=2 deployment tomcat-demo  
+# connect to openshift using DNSPing 
+```bash
+oc new-project tomcat-demo
+oc process -f deployment.yaml KUBERNETES_NAMESPACE=`oc project -q` DOCKER_URL=docker.io/jfclere/tomcat-demo | oc create -f -
 oc create -f service.yaml  
+oc scale --replicas=2 deployment tomcat-demo  
 oc create -f route.yaml  
+```
+
 Read the URL for demo:  
 ```
 [jfclere@localhost tomcat-openshift]$ oc get routes
