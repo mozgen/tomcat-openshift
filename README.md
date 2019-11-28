@@ -30,28 +30,24 @@ tomcat-demo   tomcat-demo-tomcat-demo.apps.us-east-1.online-starter.openshift.co
 ```
 
 
-# connect to openshift using KUBEPing: (DRAFT) 
+# connect to openshift using KUBEPing: (you need to have the permission to create the serviceaccount)
 
-With Adding permission:  
+Change in conf/server.xml DNSMembershipProvide to KubernetesMembershipProvider and rebuild the Docker image:
+```bash
+docker build -t docker.io/jfclere/tomcat-demo .  
+docker push docker.io/jfclere/tomcat-demo  
+```
 
+Create the service account:
+```bash
+oc new-project tomcat-demo
 oc policy add-role-to-user view system:serviceaccount:tomcat-demo:default -n tomcat-demo  
+```
 
-oc run tomcat-demo --image=docker.io/jfclere/tomcat-demo --port=8080  
-
-oc scale dc tomcat-demo --replicas=2  
-
-oc expose dc tomcat-demo --type=LoadBalancer  
-
-oc get services  
-
-[jfclere@localhost demo-webapp]$ oc get services  
-NAME          TYPE           CLUSTER-IP     EXTERNAL-IP                                                              PORT(S)          AGE  
-tomcat-demo   LoadBalancer   172.30.75.90   af1876aeaaef711e98cff1212969a920-441917139.us-east-1.elb.amazonaws.com   8080:30138/TCP   67s   
-
-curl -v http://af1876aeaaef711e98cff1212969a920-441917139.us-east-1.elb.amazonaws.com:8080/demo-1.0/demo
-
-[jfclere@localhost demo-webapp]$ oc policy add-role-to-user view system:serviceaccount:tomcat-demo:default -n tomcat-demo
-role "view" added: "system:serviceaccount:tomcat-demo:default"
-[jfclere@localhost demo-webapp]$ oc run tomcat-demo --image=docker.io/jfclere/tomcat-demo --port=8080
-deploymentconfig.apps.openshift.io/tomcat-demo created
-
+Then it is like DNSPing:
+```bash
+oc process -f deployment.yaml KUBERNETES_NAMESPACE=`oc project -q` DOCKER_URL=docker.io/jfclere/tomcat-demo | oc create -f -
+oc create -f service.yaml  
+oc scale --replicas=2 deployment tomcat-demo  
+oc create -f route.yaml  
+```
