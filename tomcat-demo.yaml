@@ -1,0 +1,12 @@
+image: jfclere/tomcat-demo:latest
+manifests:
+  -
+    image: jfclere/tomcat-demo:amd64
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: jfclere/tomcat-demo:s390x
+    platform:
+      architecture: s390x
+      os: linux
