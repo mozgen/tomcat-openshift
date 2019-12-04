@@ -10,3 +10,8 @@ manifests:
     platform:
       architecture: s390x
       os: linux
+  -
+    image: jfclere/tomcat-demo:ppc64le
+    platform:
+      architecture: ppc64le
+      os: linux
