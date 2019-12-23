@@ -52,3 +52,22 @@ oc create -f service.yaml
 oc scale --replicas=2 deployment tomcat-demo  
 oc create -f route.yaml  
 ```
+
+# Using kubernetes
+
+```bash
+kubectl create namespace tomcat-demo
+kubectl config set-context --current --namespace=tomcat-demo
+kubectl create -f kube-tomcat-demo.yaml
+kubectl create -f service.yaml
+kubectl expose deployment tomcat-demo --type=LoadBalancer --name=tomcat-balancer
+```
+
+Note:
+```bash
+root@pc-12 tomcat-openshift]# kubectl get svc
+NAME              TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+tomcat-balancer   LoadBalancer   10.100.57.140   <pending>     8080:32567/TCP   4m6s
+tomcat-demo       ClusterIP      None            <none>        80/TCP           31m
+```
+<pending> is NORMAL, use curl (or browser to port 32567) to test.
