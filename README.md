@@ -70,4 +70,4 @@ NAME              TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          
 tomcat-balancer   LoadBalancer   10.100.57.140   <pending>     8080:32567/TCP   4m6s
 tomcat-demo       ClusterIP      None            <none>        80/TCP           31m
 ```
-<pending> is NORMAL, use curl (or browser to port 32567) to test.
+\<pending\> is NORMAL, use curl (or browser to port 32567) to test.
