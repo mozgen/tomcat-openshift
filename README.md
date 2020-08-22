@@ -71,3 +71,21 @@ tomcat-balancer   LoadBalancer   10.100.57.140   <pending>     8080:32567/TCP   
 tomcat-demo       ClusterIP      None            <none>        80/TCP           31m
 ```
 \<pending\> is NORMAL, use curl (or browser to port 32567) to test.
+
+# Quick demo
+The demo assumes that you have a running cluster and the corresponding $HOME/.kube/config
+```bash
+bash startdemo.sh
+```
+Wait until the services are created.
+```bash
+[root@pc-79 tomcat-openshift]# kubectl get svc
+NAME              TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+tomcat-balancer   LoadBalancer   10.99.220.176   <pending>     8080:31533/TCP   4m16s
+tomcat-demo       ClusterIP      None            <none>        80/TCP           4m17s
+```
+Then configure and restart httpd with the port in the /etc/httpd/conf/proxy.conf file:
+```bash
+bash startbrower.sh
+```
+Use a browser with json viewer on the box...
