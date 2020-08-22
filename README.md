@@ -73,7 +73,7 @@ tomcat-demo       ClusterIP      None            <none>        80/TCP           
 \<pending\> is NORMAL, use curl (or browser to port 32567) to test.
 
 # Quick demo
-The demo assumes that you have a running cluster and the corresponding $HOME/.kube/config
+The demo assumes that you have a running cluster and the corresponding $HOME/.kube/config and httpd with mod_proxy_balancer runing on the box.
 ```bash
 bash startdemo.sh
 ```
