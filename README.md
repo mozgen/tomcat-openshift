@@ -73,7 +73,8 @@ tomcat-demo       ClusterIP      None            <none>        80/TCP           
 \<pending\> is NORMAL, use curl (or browser to port 32567) to test.
 
 # Quick demo
-The demo assumes that you have a running cluster and the corresponding $HOME/.kube/config and httpd with mod_proxy_balancer runing on the box.
+The demo assumes that you have a running cluster and registry for the images and the corresponding $HOME/.kube/config and httpd with mod_proxy_balancer runing on the box.
+It assumes the following boxes, jfcportal for the registry, master for the controlplane and greeen and blue for the nodes.
 ```bash
 bash startdemo.sh
 ```
@@ -89,3 +90,10 @@ Then configure and restart httpd with the port in the /etc/httpd/conf/proxy.conf
 bash startbrower.sh
 ```
 Use a browser with json viewer on the box...
+
+# Registry
+The registry is just a docker image running in a box the nodes and controlplane are able to access:
+```bash
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+```
+And push the tomcat-demo image there, otherwise change the *jfcportal:5000/tomcat-demo:2.2* to something like *docker.io/jfclere/tomcat-demo*
