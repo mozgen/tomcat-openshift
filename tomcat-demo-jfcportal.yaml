@@ -1,0 +1,22 @@
+image: jfcportal:5000/tomcat-demo:latest
+manifests:
+#  -
+#    image: jfcportal:5000/tomcat-demo:amd64
+#    platform:
+#      architecture: amd64
+#      os: linux
+#  -
+#    image: jfcportal:5000/tomcat-demo:s390x
+#    platform:
+#      architecture: s390x
+#      os: linux
+#  -
+#    image: jfcportal:5000/tomcat-demo:ppc64le
+#    platform:
+#      architecture: ppc64le
+#      os: linux
+  -
+    image: jfcportal:5000/tomcat-demo:aarch64
+    platform:
+      architecture: arm64
+      os: linux

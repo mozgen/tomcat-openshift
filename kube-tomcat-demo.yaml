@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tomcat-demo
-        image: jfcportal:5000/tomcat-demo:2.2
+        image: jfcportal:5000/tomcat-demo:latest
         env:
         - name: KUBERNETES_NAMESPACE
           value: "tomcat-demo"
