@@ -35,7 +35,7 @@ public class TestServlet extends HttpServlet {
             "  \"new\": %s,\n" +
             "  \"server\": \"%s\",\n" +
             "  \"hostname\": \"%s\"\n" +
-            "}";
+            "}\n";
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
