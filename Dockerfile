@@ -42,6 +42,9 @@ ENV JAVA_OPTS="${JAVA_OPTS} -Djava.util.logging.manager=org.apache.juli.ClassLoa
 RUN sh -c 'touch app.jar'
 
 RUN mkdir -p /opt
+RUN apt-get update -y
+RUN apt-get install dnsutils -y
+RUN rm -rf /var/lib/apt/lists/*
 #RUN yum -y install java-1.8.0-openjdk-headless curl bind-utils
 
 # Optional: Add Jolokia agent for JMX monitoring and management
