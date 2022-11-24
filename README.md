@@ -1,23 +1,23 @@
 # tomcat-openshift
 Example to use tomcat docker image in openshift  
-First look to https://github.com/apache/tomcat/tree/master/res/tomcat-maven  
+First look to https://github.com/apache/tomcat/tree/main/modules/stuffed
 For multi-plaform add :platform like jfclere/tomcat-demo:aarch64 to the docker URL.
 The tomcat-openshift is just explaining how to use the image in OpenShift and demo it.  
 ```bash
 mvn install  
-docker build -t quay.io/jfclere/tomcat-demo .  
-docker push quay.io/jfclere/tomcat-demo  
+podman build -t quay.io/jfclere/tomcat10.1-demo .  
+podman push quay.io/jfclere/tomcat10.1-demo  
 ```
 
 To test the tomcat-demo localy (java.net.UnknownHostException: tomcat-demo: Name does not resolve is expected):  
 ```bash
-docker run --rm -p 8080:8080 --env "KUBERNETES_NAMESPACE=tomcat-demo" -it quay.io/jfclere/tomcat-demo  
+podman run --rm -p 8080:8080 --env "KUBERNETES_NAMESPACE=tomcat-demo" -it quay.io/jfclere/tomcat10.1-demo  
 ```
 
 # connect to openshift using DNSPing 
 ```bash
 oc new-project tomcat-demo
-oc process -f deployment.yaml KUBERNETES_NAMESPACE=`oc project -q` DOCKER_URL=quay.io/jfclere/tomcat-demo | oc create -f -
+oc process -f deployment.yaml KUBERNETES_NAMESPACE=`oc project -q` DOCKER_URL=quay.io/jfclere/tomcat10.1-demo | oc create -f -
 oc create -f service.yaml  
 oc scale --replicas=2 deployment tomcat-demo  
 oc create -f route.yaml  
@@ -35,8 +35,8 @@ tomcat-demo   tomcat-demo-tomcat-demo.apps.us-east-1.online-starter.openshift.co
 
 Change in conf/server.xml DNSMembershipProvide to KubernetesMembershipProvider and rebuild the Docker image:
 ```bash
-docker build -t quay.io/jfclere/tomcat-demo .  
-docker push quay.io/jfclere/tomcat-demo  
+podman build -t quay.io/jfclere/tomcat-demo10.1 .  
+podman push quay.io/jfclere/tomcat-demo10.1  
 ```
 
 Create the service account:
@@ -47,7 +47,7 @@ oc policy add-role-to-user view system:serviceaccount:tomcat-demo:default -n tom
 
 Then it is like DNSPing:
 ```bash
-oc process -f deployment.yaml KUBERNETES_NAMESPACE=`oc project -q` DOCKER_URL=quay.io/jfclere/tomcat-demo | oc create -f -
+oc process -f deployment.yaml KUBERNETES_NAMESPACE=`oc project -q` DOCKER_URL=quay.io/jfclere/tomcat10.1-demo | oc create -f -
 oc create -f service.yaml  
 oc scale --replicas=2 deployment tomcat-demo  
 oc create -f route.yaml  
