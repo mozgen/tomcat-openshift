@@ -14,10 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM openjdk:11-jre
+FROM registry.access.redhat.com/ubi9/ubi-minimal
 VOLUME /tmp
 
 USER root
+
+RUN microdnf update && microdnf install -y java-17-openjdk-headless bind-utils && microdnf clean all
 RUN mkdir -m 777 -p /deployments
 
 ADD tomcat/target/tomcat-maven-1.0.jar /deployments/app.jar
@@ -42,10 +44,6 @@ ENV JAVA_OPTS="${JAVA_OPTS} -Djava.util.logging.manager=org.apache.juli.ClassLoa
 RUN sh -c 'touch app.jar'
 
 RUN mkdir -p /opt
-RUN apt-get update -y
-RUN apt-get install dnsutils -y
-RUN rm -rf /var/lib/apt/lists/*
-#RUN yum -y install java-1.8.0-openjdk-headless curl bind-utils
 
 # Optional: Add Jolokia agent for JMX monitoring and management
 # RUN mkdir /opt/jolokia && wget https://repo.maven.apache.org/maven2/org/jolokia/jolokia-jvm/1.6.2/jolokia-jvm-1.6.2-agent.jar -O /opt/jolokia/jolokia.jar
