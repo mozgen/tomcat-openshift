@@ -14,6 +14,17 @@ To test the tomcat-demo localy (java.net.UnknownHostException: tomcat-demo: Name
 podman run --rm -p 8080:8080 --env "KUBERNETES_NAMESPACE=tomcat-demo" -it quay.io/jfclere/tomcat10.1-demo  
 ```
 
+# Testing using an imagestream
+
+```bash
+kubectl create -f tomcat-imagestream.yaml
+kubectl create -f tomcat-app-is.yaml
+```
+Testing a new build after pushing the image with podam do:
+```bash
+oc import-image tomcat --confirm --all
+```
+
 # connect to openshift using DNSPing 
 ```bash
 oc new-project tomcat-demo
