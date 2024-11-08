@@ -1,5 +1,5 @@
 /**
- *  Copyright 2017 Ismaïl Senhaji, Guillaume Pythoud
+ *  Copyright 2017 Ismail Senhaji, Guillaume Pythoud
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ public class TestServlet extends HttpServlet {
             "  \"new\": %s,\n" +
             "  \"server\": \"%s\",\n" +
             "  \"hostname\": \"%s\"\n" +
+            "  \"date\": \"on Monday\"\n" +
             "}\n";
 
     @Override
