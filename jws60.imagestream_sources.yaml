@@ -1,0 +1,16 @@
+apiVersion: web.servers.org/v1alpha1
+kind: WebServer
+metadata:
+  name: example-jws60
+spec:
+  # Add fields here
+  applicationName: jws-app
+  replicas: 2
+  webImageStream:
+    imageStreamName: jboss-webserver60-openjdk17-tomcat10-openshift-ubi8
+    imageStreamNamespace: jclere-namespace
+    webSources:
+      sourceRepositoryUrl: https://github.com/jfclere/tomcat-openshift
+      webSourcesParams:
+        artifactDir: demo-webapp/target
+        genericWebhookSecret: jws-secret
