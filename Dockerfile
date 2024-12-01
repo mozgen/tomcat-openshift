@@ -18,7 +18,9 @@ FROM registry.access.redhat.com/ubi9/ubi-minimal
 VOLUME /tmp
 
 USER root
-
+ENV http_proxy http://proxytst.yasarsap.astron.grp:3128
+ENV https_proxy http://proxytst.yasarsap.astron.grp:3128
+ENV no_proxy 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.yasar.net,.yasar.grp
 RUN microdnf update && microdnf install -y java-17-openjdk-headless bind-utils && microdnf clean all
 RUN mkdir -m 777 -p /deployments
 
