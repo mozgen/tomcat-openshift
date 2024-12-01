@@ -18,7 +18,7 @@ ENV http_proxy http://proxytst.yasarsap.astron.grp:3128
 ENV https_proxy http://proxytst.yasarsap.astron.grp:3128
 ENV no_proxy 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.yasar.net,.yasar.grp
 
-FROM registry.access.redhat.com/ubi9/ubi-minimal
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.5-1731593028
 VOLUME /tmp
 
 USER root
